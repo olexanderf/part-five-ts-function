@@ -4,20 +4,31 @@ function summ(a) {
         var elem = a[k];
         if (typeof elem === undefined)
             return 2021;
-        if (typeof elem.cvalue === 'string')
+        if (typeof (elem === null || elem === void 0 ? void 0 : elem.cvalue) === 'string')
             return +elem.cvalue || '2021';
-        if (elem.cvalue.obj !== undefined)
-            return summ(elem);
-        return elem.сvalue;
+        if (typeof (elem === null || elem === void 0 ? void 0 : elem.cvalue) === 'object')
+            return summ(elem.cvalue);
+        return elem === null || elem === void 0 ? void 0 : elem.cvalue;
     });
     var sum = 0;
-    for (var i = 0; i < x.lenght; i++) {
-        sum += x[i].cvalue;
+    for (var i = 0; i < x.length; i++) {
+        sum += x[i];
     }
-    return summ;
+    return sum;
 }
 var v = {
     hello: { cvalue: 1 },
     world: { cvalue: { yay: { cvalue: '2' } } },
 };
 console.log(summ(v));
+var b = {
+    hello: { cvalue: 1 },
+    world: {
+        cvalue: {
+            yay: { cvalue: '2' },
+            grgr: { cvalue: 5 },
+            grr: { cvalue: '1000' },
+        },
+    },
+};
+console.log(summ(b));
