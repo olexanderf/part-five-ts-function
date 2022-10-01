@@ -9,13 +9,15 @@ function summ(a: obj) {
   const x = Object.keys(a).map((k) => {
     const elem = a[k];
     if (typeof elem === undefined) return 2021;
-    if (typeof elem?.cvalue === 'string') return +elem.cvalue || '2021';
-    if (typeof elem?.cvalue === 'object') return summ(elem.cvalue);
+    if (typeof elem?.cvalue !== null) {
+      if (typeof elem?.cvalue === 'string') return +elem.cvalue || '2021';
+      if (typeof elem?.cvalue === 'object') return summ(elem.cvalue);
+    }
     return elem?.cvalue;
   });
   let sum = 0;
   for (let i = 0; i < x.length; i++) {
-    sum += x[i] as number;
+    sum += Number(x[i]);
   }
   return sum;
 }
@@ -27,7 +29,8 @@ const v = {
 console.log(summ(v));
 
 const b = {
-  hello: { cvalue: 1 },
+  hello: { cvalue: '1z' },
+  hell: { cvalue: '1z' },
   world: {
     cvalue: {
       yay: { cvalue: '2' },
